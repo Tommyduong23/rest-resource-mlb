@@ -5,7 +5,9 @@
   >
     {{ isHeader ? division.attributes.name : division.attributes.abbreviation }}
   </div>
-  <div v-else>Loading...</div>
+  <div v-else>
+    Loading...
+  </div>
 </template>
 
 <script>
