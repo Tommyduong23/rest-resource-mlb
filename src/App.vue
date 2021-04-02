@@ -67,11 +67,10 @@
   import Vue from 'vue'
 
   import TeamResource from './resources/team'
-  import LeagueResource from './resources/team'
 
   export default Vue.extend({
     data: () => (
-      { 
+      {
         meta: {
           drawer: null,
         },
@@ -81,12 +80,9 @@
 
     async mounted() {
       let results = await TeamResource.list({ query: { sportIds: '1' } })
-      console.log(results)
       this.teamResourceList = results.resources
     },
 
-      // let LeagueResults = await LeagueResource.list()
-      // console.log(LeagueResults.resources)
     methods: {
       toggleDrawer: function () {
         this.meta.drawer = !this.meta.drawer
