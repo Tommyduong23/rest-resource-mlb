@@ -15,7 +15,10 @@
     </v-navigation-drawer>
 
     <v-main class="grey lighten-2">
-      <v-expansion-panels accordion>
+      <v-expansion-panels 
+        v-model="meta.expandedPanel"
+        accordion
+      >
         <template v-for="division in teamResourceListByDivision">
           <v-expansion-panel
             :key="division.id"
@@ -69,6 +72,7 @@
       {
         meta: {
           drawer: null,
+          expandedPanel: 0,
         },
         teamResourceList: [],
       }
@@ -98,7 +102,7 @@
     },
 
     methods: {
-      toggleDrawer: function () {
+      toggleDrawer () {
         this.meta.drawer = !this.meta.drawer
       },
     },
