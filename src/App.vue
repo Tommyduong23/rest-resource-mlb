@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="meta.drawer = !meta.drawer" />
+      <v-app-bar-nav-icon @click="toggleDrawer" />
 
       <v-toolbar-title>Major League Baseball</v-toolbar-title>
     </v-app-bar>
@@ -83,9 +83,14 @@
       let results = await TeamResource.list({ query: { sportIds: '1' } })
       console.log(results)
       this.teamResourceList = results.resources
+    },
 
       // let LeagueResults = await LeagueResource.list()
       // console.log(LeagueResults.resources)
+    methods: {
+      toggleDrawer: function () {
+        this.meta.drawer = !this.meta.drawer
+      },
     },
   })
 </script>
