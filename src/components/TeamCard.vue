@@ -1,12 +1,13 @@
 <template>
   <v-card
     v-if="team"
-    height="200"
+    max-width="100%"
+    height="210px"
+    :class="'division-'+team.attributes.division.id"
   >
     <mlb-team-logo
       v-if="id"
       :id="id"
-      dimension="75px"
     />
     <v-card-title>
       {{ team.attributes.teamName }}
@@ -15,6 +16,13 @@
     <v-card-subtitle>
       {{ team.attributes.locationName }}
     </v-card-subtitle>
+
+    <v-card-text>
+      <mlb-division-name
+        :id="team.attributes.division.id"
+        :style="{color: '#aaa'}"
+      />
+    </v-card-text>
   </v-card>
 </template>
 
@@ -30,13 +38,6 @@
         id: {
             type: Number,
             required: true,
-        },
-        dimension: {
-            type: String,
-            default: '100px',
-            validator: function (value) {
-              return value.endsWith('px') || value.endsWith('%')
-           }
         }
     },
 
@@ -49,3 +50,10 @@
     }
   })
 </script>
+
+<style scoped>
+    .division-200, .division-201, .division-202,
+    .division-203, .division-204, .division-205 {
+      border: 2px solid black!important;
+    }
+</style>
