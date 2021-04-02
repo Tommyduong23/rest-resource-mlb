@@ -19,28 +19,28 @@
         v-model="meta.expandedPanel"
         accordion
       >
-        <template v-for="division in teamResourceListByDivision">
+        <template v-for="league in teamResourceListByLeague">
           <v-expansion-panel
-            :key="division.id"
-            :class="'division-'+division.id+'-header'"
+            :key="league.id"
+            :class="'league-'+league.id+'-header'"
           >
             <v-expansion-panel-header
-              :key="division.id+'-header'"
+              :key="league.id+'-header'"
             >
-              <mlb-division-name
-                :id="division.id"
+              <mlb-league-name
+                :id="league.id"
                 is-header
               />
             </v-expansion-panel-header>
             <v-expansion-panel-content
-              :key="division.id+'-content'"
+              :key="league.id+'-content'"
             >
               <v-row
-                :key="division.id+'-items'"
-                :class="'division-'+division.id+'-items'"
+                :key="league.id+'-items'"
+                :class="'league-'+league.id+'-items'"
               >
                 <v-col
-                  v-for="team in division.teams"
+                  v-for="team in league.teams"
                   :key="team.attributes.id"
                   cols="12"
                   xs="5"
@@ -79,19 +79,20 @@
     ),
 
     computed: {
-      divisionsFromResourceList: function () {
-        return [...new Set(this.teamResourceList.map(team => team.attributes.division.id))].sort()
+      leaguesFromResourceList () {
+        return [...new Set(this.teamResourceList.map(team => team.attributes.league))].sort()
       },
 
-      teamResourceListByDivision: function () {
+      teamResourceListByLeague () {
         let result = []
 
-        this.divisionsFromResourceList.forEach(division => {
+        this.leaguesFromResourceList.forEach(league => {
           result.push({
-            id: division,
-            teams: this.teamResourceList.filter(team => team.attributes.division.id == division)
+            id: league,
+            teams: this.teamResourceList.filter(team => team.attributes.league == league),
           })
         })
+
         return result
       },
     },

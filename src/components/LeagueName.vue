@@ -1,9 +1,9 @@
 <template>
   <div
-    v-if="division"
-    :class="isHeader ? 'division-header' : 'division-tag'"
+    v-if="league"
+    :class="isHeader ? 'league-header' : 'league-tag'"
   >
-    {{ isHeader ? division.attributes.name : division.attributes.abbreviation }}
+    {{ isHeader ? league.attributes.name : league.attributes.abbreviation }}
   </div>
   <div v-else>
     Loading...
@@ -13,32 +13,31 @@
 <script>
   import Vue from 'vue'
 
-  import DivisionResource from '../resources/division'
+  import LeagueResource from '../resources/league'
 
   export default Vue.extend({
-    name: 'DivisionName',
+    name: 'LeagueName',
 
     props: {
         id: {
             type: Number,
             required: true,
-            validator: id => 200 <= id && id <= 205,
         },
         isHeader: Boolean,
     },
 
     data: () => ({
-        division: null
+        league: null
     }),
 
     async mounted () {
-        this.division = await DivisionResource.detail(this.id)
+        this.league = await LeagueResource.detail(this.id)
     }
   })
 </script>
 
 <style scoped>
-  .division-header {
+  .league-header {
     padding: 10px;
     font-weight: bold;
   }
