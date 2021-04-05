@@ -17,7 +17,9 @@
       {{ team.attributes.locationName }}
     </v-card-subtitle>
 
-    <v-card-text>
+    <v-card-text
+      v-if="team.attributes.division"
+    >
       <mlb-division-name
         :id="team.attributes.division.id"
         :style="{color: '#aaa'}"
