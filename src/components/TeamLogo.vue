@@ -2,8 +2,8 @@
   <v-img
     :src="`//www.mlbstatic.com/team-logos/${id}.svg`"
     :aspect-ratio="1/1"
-    height="100%"
-    width="100%"
+    height="50%"
+    width="auto"
     contain
   />
 </template>
