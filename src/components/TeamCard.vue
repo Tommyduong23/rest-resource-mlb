@@ -40,6 +40,10 @@
         id: {
             type: Number,
             required: true,
+        },
+        season: {
+            type: Number,
+            required: true,
         }
     },
 
@@ -47,14 +51,34 @@
       team: null
     }),
 
+    watch: {
+      season () {
+        this.getTeam()
+      },
+    },
+
     async mounted () {
-      this.team = await TeamResource.detail(this.id)
-    }
+      this.getTeam()
+    },
+
+    methods: {
+      async getTeam () {
+        TeamResource.clearCache()
+        this.team = await TeamResource.detail(this.id, { query: {season: this.season} })
+      },
+    },
   })
 </script>
 
 <style scoped>
   .v-card {
     padding-top: 25px;
+  }
+  .v-card__text {
+    position: absolute;
+    display: block;
+    bottom: 6px;
+    right: 10px;
+    text-align: right;
   }
 </style>

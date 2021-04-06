@@ -1,9 +1,23 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app>
+    <v-app-bar
+      app
+      prominent
+    >
       <v-app-bar-nav-icon @click="toggleDrawer" />
 
-      <v-toolbar-title>Major League Baseball</v-toolbar-title>
+      <v-select
+        v-model="selectedSeason"
+        :items="leagueSeasons"
+        label="Season"
+        class="season-select"
+      />
+
+      <v-app-bar-title
+        class="app-title"
+      >
+        Major League Baseball
+      </v-app-bar-title>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -51,6 +65,7 @@
                 >
                   <mlb-team-card
                     :id="team.attributes.id"
+                    :season="selectedSeason"
                   />
                 </v-col>
               </v-row>
@@ -75,6 +90,8 @@
           expandedPanel: 0,
         },
         teamResourceList: [],
+        selectedSeason: null,
+        leagueSeasons: [2021, 2020, 2019, 2018, 2017, 2016, 1960, 1910, 1876],
       }
     ),
 
@@ -97,15 +114,38 @@
       },
     },
 
+    watch: {
+      selectedSeason () {
+        this.getResourceList()
+      },
+    },
+
     async mounted() {
-      let results = await TeamResource.list({ query: { sportIds: '1' } })
-      this.teamResourceList = results.resources
+      this.selectedSeason = new Date().getFullYear()
+      this.getResourceList()
     },
 
     methods: {
+      async getResourceList () {
+        let results = await TeamResource.list({ query: { sportIds: '1', season: this.selectedSeason} })
+        this.teamResourceList = results.resources
+      },
       toggleDrawer () {
         this.meta.drawer = !this.meta.drawer
       },
     },
   })
 </script>
+
+<style scoped>
+  .app-title {
+    float: left;
+    clear: both;
+  }
+  .season-select {
+    position: absolute;
+    display: block;
+    top: 15px;
+    right: 15px;
+  }
+</style>
