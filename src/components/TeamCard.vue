@@ -57,7 +57,7 @@
       },
     },
 
-    async mounted () {
+    mounted () {
       this.getTeam()
     },
 

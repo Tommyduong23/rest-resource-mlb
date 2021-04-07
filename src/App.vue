@@ -5,7 +5,7 @@
       <v-app-bar-title class="app-title">
         Major League Baseball
       </v-app-bar-title>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-menu
         offset-y
         :close-on-content-click="false"
@@ -118,7 +118,7 @@
         },
         teamResourceList: [],
         selectedSeason: null,
-        leagueSeasons: [2021, 2020, 2019, 2018, 2017, 2016, 1960, 1910, 1876],
+        leagueSeasons: [],
       }
     ),
 
