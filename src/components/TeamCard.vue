@@ -17,7 +17,9 @@
       {{ team.attributes.locationName }}
     </v-card-subtitle>
 
-    <v-card-text>
+    <v-card-text
+      v-if="team.attributes.division"
+    >
       <mlb-division-name
         :id="team.attributes.division.id"
         :style="{color: '#aaa'}"
@@ -38,6 +40,10 @@
         id: {
             type: Number,
             required: true,
+        },
+        season: {
+            type: Number,
+            required: true,
         }
     },
 
@@ -45,14 +51,34 @@
       team: null
     }),
 
-    async mounted () {
-      this.team = await TeamResource.detail(this.id)
-    }
+    watch: {
+      season () {
+        this.getTeam()
+      },
+    },
+
+    mounted () {
+      this.getTeam()
+    },
+
+    methods: {
+      async getTeam () {
+        TeamResource.clearCache()
+        this.team = await TeamResource.detail(this.id, { query: {season: this.season} })
+      },
+    },
   })
 </script>
 
 <style scoped>
   .v-card {
     padding-top: 25px;
+  }
+  .v-card__text {
+    position: absolute;
+    display: block;
+    bottom: 6px;
+    right: 10px;
+    text-align: right;
   }
 </style>
