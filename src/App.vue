@@ -1,23 +1,43 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar
-      app
-      prominent
-    >
+    <v-app-bar app>
       <v-app-bar-nav-icon @click="toggleDrawer" />
-
-      <v-select
-        v-model="selectedSeason"
-        :items="leagueSeasons"
-        label="Season"
-        class="season-select"
-      />
-
-      <v-app-bar-title
-        class="app-title"
-      >
+      <v-app-bar-title class="app-title">
         Major League Baseball
       </v-app-bar-title>
+      <v-spacer></v-spacer>
+      <v-menu
+        offset-y
+        :close-on-content-click="false"
+        right
+        bottom
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon color="black">
+              mdi-calendar
+            </v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item>
+            <v-autocomplete
+              v-model="selectedSeason"
+              :items="leagueSeasons"
+              hide-details="auto"
+              label="Season"
+              class="season-select"
+            >
+              Loading...
+            </v-autocomplete>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -30,6 +50,7 @@
 
     <v-main class="grey lighten-2">
       <v-expansion-panels 
+        v-if="!meta.loading"
         v-model="meta.expandedPanel"
         accordion
       >
@@ -73,6 +94,9 @@
           </v-expansion-panel>
         </template>
       </v-expansion-panels>
+      <div v-else>
+        Loading...
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -81,13 +105,16 @@
   import Vue from 'vue'
 
   import TeamResource from './resources/team'
+  import SeasonResource from './resources/season'
 
   export default Vue.extend({
     data: () => (
       {
         meta: {
           drawer: null,
+          showSeasonSelect: null,
           expandedPanel: 0,
+          loading: false,
         },
         teamResourceList: [],
         selectedSeason: null,
@@ -121,31 +148,25 @@
     },
 
     async mounted() {
-      this.selectedSeason = new Date().getFullYear()
+      let seasons = await SeasonResource.list({ query: { sportId: '1', all: 'true'} })
+      this.leagueSeasons = seasons.resources.map(season => parseInt(season.attributes.seasonId)).sort((a, b) => {return b - a})
+      this.selectedSeason = this.leagueSeasons[0]
       this.getResourceList()
     },
 
     methods: {
       async getResourceList () {
+        this.meta.loading = true
         let results = await TeamResource.list({ query: { sportIds: '1', season: this.selectedSeason} })
         this.teamResourceList = results.resources
+        this.meta.loading = false
       },
       toggleDrawer () {
         this.meta.drawer = !this.meta.drawer
       },
+      toggleSeasonSelect () {
+        this.meta.showSeasonSelect = !this.meta.showSeasonSelect
+      },
     },
   })
 </script>
-
-<style scoped>
-  .app-title {
-    float: left;
-    clear: both;
-  }
-  .season-select {
-    position: absolute;
-    display: block;
-    top: 15px;
-    right: 15px;
-  }
-</style>
