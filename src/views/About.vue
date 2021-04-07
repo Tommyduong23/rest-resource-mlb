@@ -1,5 +1,10 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <mlb-base>
+    <template #page-title>
+      About
+    </template>
+    <h1>
+      About Page Content
+    </h1>
+  </mlb-base>
 </template>
