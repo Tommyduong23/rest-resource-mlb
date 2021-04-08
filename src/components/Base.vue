@@ -24,7 +24,7 @@
           v-for="item in items"
           :key="item.title"
           link
-          :href="item.path"
+          :to="item.path"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
