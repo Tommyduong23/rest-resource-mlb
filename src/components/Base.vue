@@ -2,11 +2,11 @@
   <div>
     <v-app-bar app>
       <v-app-bar-nav-icon @click="toggleDrawer" />
-      <slot name="page-title">
-        <v-app-bar-title class="app-title">
+      <v-app-bar-title class="app-title">
+        <slot name="page-title">
           Major League Baseball
-        </v-app-bar-title>
-      </slot>
+        </slot>
+      </v-app-bar-title>
       <v-spacer />
       <slot name="top-right-menu" />
     </v-app-bar>

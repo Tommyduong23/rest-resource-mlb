@@ -3,41 +3,8 @@
     <template #page-title>
       {{ !meta.loading ? teamDetails.attributes.name : "Loading..." }}
     </template>
-    <template 
-      #top-right-menu
-    >
-      <v-menu
-        offset-y
-        :close-on-content-click="false"
-        right
-        bottom
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon color="black">
-              mdi-calendar
-            </v-icon>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item>
-            <v-autocomplete
-              v-model="selectedSeason"
-              :items="leagueSeasons"
-              hide-details="auto"
-              label="Season"
-              class="season-select"
-            >
-              Loading...
-            </v-autocomplete>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+    <template #top-right-menu>
+      <mlb-season-select />
     </template>
 
     <template v-if="!meta.loading">
@@ -66,9 +33,9 @@
 
 <script>
   import Vue from 'vue'
+  import { mapState } from 'vuex'
 
   import TeamResource from '../resources/team'
-  import SeasonResource from '../resources/season'
 
   import TeamDetailsRoster from '../components/TeamDetailsRoster'
   import TeamDetailsCoaches from '../components/TeamDetailsCoaches'
@@ -91,7 +58,6 @@
     data: () => (
       {
         meta: {
-          showSeasonSelect: null,
           expandedPanel: 0,
           loading: true,
           teamComponents: [
@@ -101,10 +67,13 @@
           ]
         },
         teamDetails: {},
-        selectedSeason: null,
         leagueSeasons: [],
       }
     ),
+
+    computed: mapState([
+      'selectedSeason'
+    ]),
 
     watch: {
       selectedSeason () {
@@ -113,10 +82,9 @@
     },
 
     async mounted() {
-      let seasons = await SeasonResource.list({ query: { sportId: '1', all: 'true'} })
-      this.leagueSeasons = seasons.resources.map(season => parseInt(season.attributes.seasonId)).sort((a, b) => {return b - a})
-      this.selectedSeason = this.leagueSeasons[0]
-      this.getTeamDetails()
+      if (this.selectedSeason) {
+        this.getTeamDetails()
+      }
     },
 
     methods: {
@@ -124,9 +92,6 @@
         this.meta.loading = true
         this.teamDetails = await TeamResource.detail(this.id, { query: { sportIds: '1', season: this.selectedSeason} })
         this.meta.loading = false
-      },
-      toggleSeasonSelect () {
-        this.meta.showSeasonSelect = !this.meta.showSeasonSelect
       },
     },
   })

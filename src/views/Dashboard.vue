@@ -4,38 +4,7 @@
       MLB Dashboard
     </template>
     <template #top-right-menu>
-      <v-menu
-        offset-y
-        :close-on-content-click="false"
-        right
-        bottom
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon color="black">
-              mdi-calendar
-            </v-icon>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item>
-            <v-autocomplete
-              v-model="selectedSeason"
-              :items="leagueSeasons"
-              hide-details="auto"
-              label="Season"
-              class="season-select"
-            >
-              Loading...
-            </v-autocomplete>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <mlb-season-select />
     </template>
 
     <v-expansion-panels 
@@ -97,25 +66,26 @@
 
 <script>
   import Vue from 'vue'
+  import { mapState } from 'vuex'
 
   import TeamResource from '../resources/team'
-  import SeasonResource from '../resources/season'
 
   export default Vue.extend({
     data: () => (
       {
         meta: {
-          showSeasonSelect: null,
           expandedPanel: 0,
           loading: false,
         },
         teamResourceList: [],
-        selectedSeason: null,
-        leagueSeasons: [],
       }
     ),
 
     computed: {
+      ...mapState([
+        'selectedSeason'
+      ]),
+
       leaguesFromResourceList () {
         return [...new Set(this.teamResourceList.map(team => team.attributes.league))].sort()
       },
@@ -141,10 +111,9 @@
     },
 
     async mounted() {
-      let seasons = await SeasonResource.list({ query: { sportId: '1', all: 'true'} })
-      this.leagueSeasons = seasons.resources.map(season => parseInt(season.attributes.seasonId)).sort((a, b) => {return b - a})
-      this.selectedSeason = this.leagueSeasons[0]
-      this.getResourceList()
+      if (this.selectedSeason) {
+        this.getResourceList()
+      }
     },
 
     methods: {
@@ -153,9 +122,6 @@
         let results = await TeamResource.list({ query: { sportIds: '1', season: this.selectedSeason} })
         this.teamResourceList = results.resources
         this.meta.loading = false
-      },
-      toggleSeasonSelect () {
-        this.meta.showSeasonSelect = !this.meta.showSeasonSelect
       },
     },
   })
