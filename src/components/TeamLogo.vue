@@ -2,7 +2,7 @@
   <v-img
     :src="`//www.mlbstatic.com/team-logos/${id}.svg`"
     :aspect-ratio="1/1"
-    height="50%"
+    :height="height"
     width="auto"
     contain
   />
@@ -15,9 +15,16 @@
         name: 'TeamLogo',
         props: {
             id: {
-                type: Number,
+                type: [Number, String],
                 required: true,
+                validator: (value) => {
+                  return parseInt(value) ? true : false
+                }
             },
+            height: {
+              type: String,
+              default: "50%",
+            }
         },
     })
 </script>
