@@ -73,10 +73,16 @@
                 lg="2"
                 xl="1"
               >
-                <mlb-team-card
-                  :id="team.attributes.id"
-                  :season="selectedSeason"
-                />
+                <router-link
+                  tag="div"
+                  :to="`/teams/${team.attributes.id}`"
+                  class="team-card-link"
+                >
+                  <mlb-team-card
+                    :id="team.attributes.id"
+                    :season="selectedSeason"
+                  />
+                </router-link>
               </v-col>
             </v-row>
           </v-expansion-panel-content>
@@ -154,3 +160,9 @@
     },
   })
 </script>
+
+<style scoped>
+  .team-card-link {
+    cursor: pointer;
+  }
+</style>
