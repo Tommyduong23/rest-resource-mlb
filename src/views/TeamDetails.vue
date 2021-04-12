@@ -1,5 +1,7 @@
 <template>
-  <mlb-base>
+  <mlb-base
+    :team="!meta.loading ? teamDetails.attributes.id : 0"
+  >
     <template #page-title>
       {{ !meta.loading ? teamDetails.attributes.name : "Loading..." }}
     </template>

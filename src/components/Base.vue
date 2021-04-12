@@ -1,11 +1,16 @@
 <template>
   <div>
-    <v-app-bar app>
+    <v-app-bar
+      app
+      :style="{ 'background-color': getTeamColors(team)[0] }"
+    >
       <v-app-bar-nav-icon @click="toggleDrawer" />
       <v-app-bar-title class="app-title">
-        <slot name="page-title">
-          Major League Baseball
-        </slot>
+        <h1 :style="{ 'color': getTeamColors(team)[1] }">
+          <slot name="page-title">
+            Major League Baseball
+          </slot>
+        </h1>
       </v-app-bar-title>
       <v-spacer />
       <slot name="top-right-menu" />
@@ -48,7 +53,17 @@
 <script>
     import Vue from 'vue'
 
+    import { getTeamColors } from '../config'
+
     export default Vue.extend({
+        props: {
+            team: {
+                type: String,
+                default: "",
+            },
+            themeNav: Boolean,
+        },
+
         data: () => (
             {
                 drawer: null,
@@ -66,6 +81,13 @@
             toggleDrawer () {
                 this.drawer = !this.drawer
             },
+            getTeamColors
         },
     })
 </script>
+
+<style scoped>
+  .app-title h1 {
+    overflow: visible;
+  }
+</style>
