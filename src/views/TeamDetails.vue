@@ -66,7 +66,7 @@
             "roster",
             "coaches",
             "history",
-          ]
+          ],
         },
         teamDetails: {},
         leagueSeasons: [],
@@ -74,7 +74,7 @@
     ),
 
     computed: mapState([
-      'selectedSeason'
+        'selectedSeason'
     ]),
 
     watch: {

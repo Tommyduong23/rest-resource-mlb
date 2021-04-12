@@ -5,7 +5,7 @@
     <v-expansion-panel-header
       key="team-history-header"
     >
-      Team History
+      <h2>Team History</h2>
     </v-expansion-panel-header>
     <v-expansion-panel-content
       key="team-history-content"

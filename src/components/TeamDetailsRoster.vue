@@ -5,7 +5,7 @@
     <v-expansion-panel-header
       key="team-roster-header"
     >
-      Team Roster
+      <h2>Team Roster</h2>
     </v-expansion-panel-header>
     <v-expansion-panel-content
       key="team-roster-content"

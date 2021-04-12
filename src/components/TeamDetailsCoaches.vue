@@ -5,7 +5,7 @@
     <v-expansion-panel-header
       key="team-coaches-header"
     >
-      Team Coaches
+      <h2>Team Coaches</h2>
     </v-expansion-panel-header>
     <v-expansion-panel-content
       key="team-coaches-content"
