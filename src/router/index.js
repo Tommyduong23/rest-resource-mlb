@@ -22,12 +22,13 @@ const routes = [
 //    component: () =>
 //      import(/* webpackChunkName: "teams" */ '../views/Teams.vue'),
 //  },
-//  {
-//    path: '/teams/details',
-//    name: 'Team Details',
-//    component: () =>
-//      import(/* webpackChunkName: "teams" */ '../views/TeamDetails.vue'),
-//  },
+  {
+    path: '/teams/:id',
+    name: 'Team Details',
+    props: true,
+    component: () =>
+      import(/* webpackChunkName: "teams" */ '../views/TeamDetails.vue'),
+  },
 ]
 
 const router = new VueRouter({
