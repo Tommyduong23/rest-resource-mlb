@@ -8,8 +8,8 @@ export const TeamList = {
     },
 
     methods: {
-        async getTeamList (sport, season) {
-            let results = await TeamResource.list({ query: { sportIds: sport, season: season} })
+        async getTeamList (options = {}) {
+            let results = await TeamResource.list({ ...options })
             this.teamList = results.resources
         }
     }
@@ -23,8 +23,8 @@ export const TeamDetails = {
     },
 
     methods: {
-        async getTeamDetails (sport, season) {
-            this.teamDetails = await TeamResource.detail(this.id, { query: {  sportIds: sport, season: season } })
+        async getTeamDetails (id, options = {}) {
+            this.teamDetails = await TeamResource.detail(id, { ...options })
         }
     }
 }

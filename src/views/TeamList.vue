@@ -33,13 +33,13 @@
 
     watch: {
       selectedSeason () {
-        this.getTeamList('1', this.selectedSeason)
+        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' } })
       },
     },
 
     async mounted() {
       if (this.selectedSeason) {
-        this.getTeamList('1', this.selectedSeason)
+        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' } })
       }
     },
   })
