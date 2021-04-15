@@ -43,14 +43,20 @@
         return this.teamList.map(team => {
           return {
             name: team.get('name'),
+            league: team.get('league.name'),
+            division: team.get('division.name'),
             venue: team.get('venue.name')
           }
         })
       },
 
       columnDefs () {
+        // TODO: AG Grid is doing a weird thing of removing and adding division/league column, fix.
+        let hasDivision = !!this.rowData[0].division
+
         return [
-          {field: 'name'},
+          {field: 'name', sortable: true},
+          {field: hasDivision ? 'division' : 'league', sortable: true},
           {field: 'venue'}
          ]
       },
