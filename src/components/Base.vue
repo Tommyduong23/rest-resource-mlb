@@ -4,7 +4,10 @@
       app
       :style="{ 'background-color': getTeamColors(team)[0] }"
     >
-      <v-app-bar-nav-icon @click="toggleDrawer" />
+      <v-app-bar-nav-icon
+        :color="getTeamColors(team)[1]"
+        @click="toggleDrawer"
+      />
       <v-app-bar-title class="app-title">
         <h1 :style="{ 'color': getTeamColors(team)[1] }">
           <slot name="page-title">
@@ -61,7 +64,6 @@
                 type: Number,
                 default: 0,
             },
-            themeNav: Boolean,
         },
 
         data: () => (

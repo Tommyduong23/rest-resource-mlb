@@ -11,7 +11,7 @@
         v-bind="attrs"
         v-on="on"
       >
-        <v-icon color="black">
+        <v-icon :color="getTeamColors(team)[1]">
           mdi-calendar
         </v-icon>
       </v-btn>
@@ -35,8 +35,16 @@
   import Vue from 'vue'
 
   import SeasonResource from '../resources/season'
+  import { getTeamColors } from '../config'
 
   export default Vue.extend({
+    props: {
+        team: {
+            type: Number,
+            default: 0,
+        },
+    },
+
     data: () => (
       {
         meta: {
@@ -70,6 +78,7 @@
       toggleSeasonSelect () {
         this.meta.showSeasonSelect = !this.meta.showSeasonSelect
       },
+      getTeamColors,
     },
   })
 </script>

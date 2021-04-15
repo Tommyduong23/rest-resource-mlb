@@ -6,14 +6,51 @@
       {{ teamDetails ? teamDetails.attributes.name : "Loading..." }}
     </template>
     <template #top-right-menu>
-      <mlb-season-select />
+      <mlb-season-select :team="teamDetails ? teamDetails.attributes.id : 0" />
     </template>
 
     <template v-if="teamDetails">
-      <mlb-team-logo
-        :id="teamDetails.attributes.id"
-        height="200px"
-      />
+      <v-row>
+        <v-col
+          cols="6"
+          sm="4"
+          md="3"
+          lg="2"
+          xl="1"
+        >
+          <v-card
+            class="pa-3 ma-5 rounded-lg"
+            elevation="3"
+          >
+            <mlb-team-logo
+              :id="teamDetails.attributes.id"
+              height="100%"
+            />
+          </v-card>
+        </v-col>
+        <v-col
+          cols="6"
+          sm="6"
+          md="8"
+          lg="9"
+          xl="10"
+        >
+          <v-card
+            tile
+            class="my-5"
+            color="transparent"
+            elevation="0"
+          >
+            <dl>
+              <dt><h3>{{ teamDetails.attributes.division ? "Division:" : "League:" }}</h3></dt>
+              <dd>{{ teamDetails.attributes.division ? teamDetails.get('division.name') : teamDetails.get('league.name') }}</dd>
+
+              <dt><h3>Venue:</h3></dt>
+              <dd>{{ teamDetails.get('venue.name') }}</dd>
+            </dl>
+          </v-card>
+        </v-col>
+      </v-row>
       <v-expansion-panels 
         v-model="meta.expandedPanel"
         accordion
@@ -72,19 +109,19 @@
       }
     ),
 
-    computed: mapState([
-        'selectedSeason'
-    ]),
+    computed: {
+      ...mapState(['selectedSeason']),
+    },
 
     watch: {
       selectedSeason () {
-        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason} } )
+        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason}, resolveRelated: true, useCache: false } )
       },
     },
 
-    async mounted() {
+    mounted() {
       if (this.selectedSeason) {
-        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason} } )
+        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason}, resolveRelated: true, useCache: false } )
       }
     },
   })
