@@ -10,10 +10,9 @@ export default class TeamResource extends BaseResource {
     static endpoint = '/teams'
 
     static related = {
-        // TODO: Fix Dashboard View
-        // division: {
-        //     to: DivisionResource,
-        // },
+        division: {
+            to: DivisionResource,
+        },
         league: {
             to: LeagueResource,
         },
@@ -32,7 +31,7 @@ export default class TeamResource extends BaseResource {
     }
 
     static normalization = {
-        // division: new NumberNormalizer(),
+        division: new NumberNormalizer(),
         league: new NumberNormalizer(),
         sport: new NumberNormalizer(),
         springLeague: new NumberNormalizer(),

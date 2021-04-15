@@ -21,7 +21,7 @@
       v-if="team.attributes.division"
     >
       <mlb-division-name
-        :id="team.attributes.division.id"
+        :id="team.attributes.division"
         :style="{color: '#aaa'}"
       />
     </v-card-text>

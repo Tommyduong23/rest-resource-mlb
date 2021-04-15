@@ -58,8 +58,8 @@
     export default Vue.extend({
         props: {
             team: {
-                type: String,
-                default: "",
+                type: Number,
+                default: 0,
             },
             themeNav: Boolean,
         },

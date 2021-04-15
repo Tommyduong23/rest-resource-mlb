@@ -25,7 +25,11 @@ const routes = [
   {
     path: '/teams/:id',
     name: 'Team Details',
-    props: true,
+    props(route) {
+      let props = { ...route.params }
+      props.id = +props.id
+      return props
+    },
     component: () =>
       import(/* webpackChunkName: "teams" */ '../views/TeamDetails.vue'),
   },
