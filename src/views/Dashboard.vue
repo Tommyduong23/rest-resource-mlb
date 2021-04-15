@@ -35,8 +35,7 @@
               <v-col
                 v-for="team in league.teams"
                 :key="team.attributes.id"
-                cols="12"
-                xs="5"
+                cols="6"
                 sm="4"
                 md="3"
                 lg="2"

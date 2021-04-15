@@ -1,6 +1,6 @@
 <template>
   <v-card
-    v-if="team"
+    v-if="teamDetails"
     max-width="100%"
     height="210px"
   >
@@ -10,18 +10,18 @@
     />
 
     <v-card-title>
-      {{ team.attributes.teamName }}
+      {{ teamDetails.attributes.teamName }}
     </v-card-title>
 
     <v-card-subtitle>
-      {{ team.attributes.locationName }}
+      {{ teamDetails.attributes.locationName }}
     </v-card-subtitle>
 
     <v-card-text
-      v-if="team.attributes.division"
+      v-if="teamDetails.attributes.division"
     >
       <mlb-division-name
-        :id="team.attributes.division.id"
+        :id="teamDetails.attributes.division"
         :style="{color: '#aaa'}"
       />
     </v-card-text>
@@ -31,10 +31,12 @@
 <script>
   import Vue from 'vue'
 
-  import TeamResource from '../resources/team'
+  import { TeamDetails } from '../mixins'
 
   export default Vue.extend({
     name: "TeamCard",
+
+    mixins: [TeamDetails],
 
     props: {
         id: {
@@ -47,25 +49,14 @@
         }
     },
 
-    data: () => ({
-      team: null
-    }),
-
     watch: {
       season () {
-        this.getTeam()
+        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.season}, useCache: false } )
       },
     },
 
     mounted () {
-      this.getTeam()
-    },
-
-    methods: {
-      async getTeam () {
-        TeamResource.clearCache()
-        this.team = await TeamResource.detail(this.id, { query: {season: this.season} })
-      },
+      this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.season}, useCache: false } )
     },
   })
 </script>

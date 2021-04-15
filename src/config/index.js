@@ -1,1 +1,1 @@
-export { getTeamColors } from './teamColors'
+export { colors, getTeamColors } from './teamColors'

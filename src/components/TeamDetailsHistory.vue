@@ -83,6 +83,7 @@
       },
 
       methods: {
+          getTeamColors,
           async getTeamHistory () {
               this.meta.loading = true
 
@@ -92,7 +93,6 @@
 
               this.meta.loading = false
           },
-          getTeamColors,
       },
   })
 </script>

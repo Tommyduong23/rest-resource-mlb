@@ -1,19 +1,56 @@
 <template>
   <mlb-base
-    :team="!meta.loading ? teamDetails.attributes.id : 0"
+    :team="teamDetails ? teamDetails.attributes.id : 0"
   >
     <template #page-title>
-      {{ !meta.loading ? teamDetails.attributes.name : "Loading..." }}
+      {{ teamDetails ? teamDetails.attributes.name : "Loading..." }}
     </template>
     <template #top-right-menu>
-      <mlb-season-select />
+      <mlb-season-select :team="teamDetails ? teamDetails.attributes.id : 0" />
     </template>
 
-    <template v-if="!meta.loading">
-      <mlb-team-logo
-        :id="teamDetails.attributes.id"
-        height="200px"
-      />
+    <template v-if="teamDetails">
+      <v-row>
+        <v-col
+          cols="6"
+          sm="4"
+          md="3"
+          lg="2"
+          xl="1"
+        >
+          <v-card
+            class="pa-3 ma-5 rounded-lg"
+            elevation="3"
+          >
+            <mlb-team-logo
+              :id="teamDetails.attributes.id"
+              height="100%"
+            />
+          </v-card>
+        </v-col>
+        <v-col
+          cols="6"
+          sm="6"
+          md="8"
+          lg="9"
+          xl="10"
+        >
+          <v-card
+            tile
+            class="my-5"
+            color="transparent"
+            elevation="0"
+          >
+            <dl>
+              <dt><h3>{{ teamDetails.attributes.division ? "Division:" : "League:" }}</h3></dt>
+              <dd>{{ teamDetails.attributes.division ? teamDetails.get('division.name') : teamDetails.get('league.name') }}</dd>
+
+              <dt><h3>Venue:</h3></dt>
+              <dd>{{ teamDetails.get('venue.name') }}</dd>
+            </dl>
+          </v-card>
+        </v-col>
+      </v-row>
       <v-expansion-panels 
         v-model="meta.expandedPanel"
         accordion
@@ -37,7 +74,7 @@
   import Vue from 'vue'
   import { mapState } from 'vuex'
 
-  import TeamResource from '../resources/team'
+  import { TeamDetails } from '../mixins'
 
   import TeamDetailsRoster from '../components/TeamDetailsRoster'
   import TeamDetailsCoaches from '../components/TeamDetailsCoaches'
@@ -50,9 +87,11 @@
         TeamDetailsHistory,
     },
 
+    mixins: [TeamDetails],
+
     props: {
         id: {
-            type: String,
+            type: Number,
             required: true,
         },
     },
@@ -61,40 +100,29 @@
       {
         meta: {
           expandedPanel: 0,
-          loading: true,
           teamComponents: [
             "roster",
             "coaches",
             "history",
           ],
         },
-        teamDetails: {},
-        leagueSeasons: [],
       }
     ),
 
-    computed: mapState([
-        'selectedSeason'
-    ]),
+    computed: {
+      ...mapState(['selectedSeason']),
+    },
 
     watch: {
       selectedSeason () {
-        this.getTeamDetails()
+        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason}, resolveRelated: true, useCache: false } )
       },
     },
 
-    async mounted() {
+    mounted() {
       if (this.selectedSeason) {
-        this.getTeamDetails()
+        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason}, resolveRelated: true, useCache: false } )
       }
-    },
-
-    methods: {
-      async getTeamDetails () {
-        this.meta.loading = true
-        this.teamDetails = await TeamResource.detail(this.id, { query: { sportIds: '1', season: this.selectedSeason} })
-        this.meta.loading = false
-      },
     },
   })
 </script>

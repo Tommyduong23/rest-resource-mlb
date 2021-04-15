@@ -42,7 +42,7 @@ export class JobTypeResource extends BaseResource {
     static endpoint = '/jobTypes'
 }
 
-export class languageResource extends BaseResource {
+export class LanguageResource extends BaseResource {
     static endpoint = '/languages'
 }
 

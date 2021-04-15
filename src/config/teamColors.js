@@ -1,4 +1,9 @@
-const colors = {
+export const colors = {
+    // It would be better to use an object with 'primary' and 'secondary' keys
+    0: [
+        'white',
+        'black'
+    ],
     108: [
         '#BA0021',
         '#FFFFFF'
@@ -122,9 +127,5 @@ const colors = {
 }
 
 export function getTeamColors(id) {
-    // Clean this up later, maybe using a reduce?
-    let result = colors[id]
-    let resultInvalid = !result || result.length < 2 || !result[0] || !result[1] || result[0] == null || result[1] == null
-
-    return resultInvalid ? ['white', 'black'] : result
+    return colors[id] || colors[0]
 }
