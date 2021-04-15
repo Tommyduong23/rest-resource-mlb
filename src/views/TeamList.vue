@@ -9,7 +9,7 @@
 
     <template v-if="teamList">
       <ag-grid-vue
-        style="width: 500px; height: 500px;"
+        dom-layout="autoHeight"
         class="ag-theme-alpine"
         :column-defs="columnDefs"
         :row-data="rowData"
