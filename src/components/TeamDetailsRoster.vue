@@ -10,22 +10,27 @@
     <v-expansion-panel-content
       key="team-roster-content"
     >
-      <ul v-if="!meta.loading">
-        <li
-          v-for="player in teamRoster"
-          :key="player.person.id"
-        >
-          <strong>{{ player.person.fullName }} ({{ player.jerseyNumber }})</strong> | {{ player.position.abbreviation }}
-        </li>
-      </ul>
+      <ag-grid-vue
+        dom-layout="autoHeight"
+        class="ag-theme-alpine"
+        :column-defs="columnDefs"
+        :row-data="rowData"
+      />
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 
 <script>
   import Vue from 'vue'
+  import { AgGridVue } from "ag-grid-vue";
+
+  import { getTeamColors } from '../config'
 
     export default Vue.extend({
+        components: {
+            AgGridVue
+        },
+
         props: {
             teamDetails: {
                 type: Object,
@@ -39,12 +44,45 @@
 
         data: () => (
             {
-                meta: {
-                    loading: true,
-                },
                 teamRoster: [],
             }
         ),
+
+        computed: {
+          rowData () {
+            return this.teamRoster.map(player => {
+              return {
+                number: player.jerseyNumber,
+                name: player.person.fullName + ' (' + player.position.abbreviation + ')',
+                position: player.position.name,
+                status: player.status.description,
+              }
+            })
+          },
+
+          columnDefs () {
+            return [
+              {
+                field: 'number',
+                headerName: '#',
+                width: 45,
+                sortable: true,
+                suppressSizeToFit: true,
+                cellStyle: {
+                  'padding': '0 10px',
+                  'color': getTeamColors(this.teamDetails.attributes.id)[1],
+                  'background-color': getTeamColors(this.teamDetails.attributes.id)[0],
+                  'font-weight': 'bold',
+                  'font-size': '1.25em',
+                  'text-align': 'center',
+                }
+              },
+              {field: 'name', headerName: 'Player Name', sortable: true},
+              {field: 'position', sortable: true},
+              {field: 'status', sortable: true},
+            ]
+          },
+        },
 
         watch: {
             selectedSeason () {
@@ -52,19 +90,16 @@
             },
         },
 
-        async mounted() {
+        mounted() {
             this.getTeamRoster()
         },
 
         methods: {
+            getTeamColors,
             async getTeamRoster () {
-                this.meta.loading = true
-                
                 let rosterRequest = this.teamDetails.wrap('/roster', { sportIds: '1', season: this.selectedSeason })
                 let rosterResponse = await rosterRequest.get()
                 this.teamRoster = rosterResponse.data.roster
-                
-                this.meta.loading = false
             },
         },
     })
