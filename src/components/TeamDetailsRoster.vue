@@ -21,10 +21,10 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import { AgGridVue } from "ag-grid-vue";
+    import Vue from 'vue'
+    import { AgGridVue } from "ag-grid-vue";
 
-  import { getTeamColors } from '../config'
+    import { getTeamColors } from '../config'
 
     export default Vue.extend({
         components: {
@@ -73,7 +73,7 @@
                   'color': getTeamColors(this.teamDetails.attributes.id)[1],
                   'background-color': getTeamColors(this.teamDetails.attributes.id)[0],
                   'font-weight': 'bold',
-                  'font-size': '1.25em',
+                  'font-size': '1em',
                   'text-align': 'center',
                 }
               },
