@@ -11,7 +11,7 @@
       key="team-history-content"
     >
       <v-timeline
-        v-if="!meta.loading"
+        v-if="teamHistory"
         dense
       >
         <v-timeline-item
@@ -32,7 +32,34 @@
               {{ team.name }}
             </v-card-title>
             <v-card-text>
-              Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <dl>
+                    <dt>
+                      <h4>League:</h4>
+                    </dt>
+                    <dd>
+                      {{ team.league.name }}
+                    </dd>
+                  </dl>
+                </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <dl>
+                    <dt>
+                      <h4>Venue:</h4>
+                    </dt>
+                    <dd>
+                      {{ team.venue.name }}
+                    </dd>
+                  </dl>
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
           <template v-slot:opposite>
@@ -65,10 +92,7 @@
 
       data: () => (
           {
-              meta: {
-                  loading: true,
-              },
-              teamHistory: [],
+              teamHistory: null,
           }
       ),
 
@@ -85,13 +109,9 @@
       methods: {
           getTeamColors,
           async getTeamHistory () {
-              this.meta.loading = true
-
               let historyRequest = this.teamDetails.wrap('/history')
               let historyResponse = await historyRequest.get()
               this.teamHistory = historyResponse.data.teams
-
-              this.meta.loading = false
           },
       },
   })
