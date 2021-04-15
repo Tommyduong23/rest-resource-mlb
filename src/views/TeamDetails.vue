@@ -42,11 +42,19 @@
             elevation="0"
           >
             <dl>
-              <dt><h3>{{ teamDetails.attributes.division ? "Division:" : "League:" }}</h3></dt>
-              <dd>{{ teamDetails.attributes.division ? teamDetails.get('division.name') : teamDetails.get('league.name') }}</dd>
+              <dt>
+                <h3>{{ teamDetails.attributes.division ? "Division:" : "League:" }}</h3>
+              </dt>
+              <dd>
+                {{ teamDetails.attributes.division ? teamDetails.get('division.name') : teamDetails.get('league.name') }}
+              </dd>
 
-              <dt><h3>Venue:</h3></dt>
-              <dd>{{ teamDetails.get('venue.name') }}</dd>
+              <dt class="mt-5">
+                <h3>Venue:</h3>
+              </dt>
+              <dd>
+                {{ teamDetails.get('venue.name') }}
+              </dd>
             </dl>
           </v-card>
         </v-col>
