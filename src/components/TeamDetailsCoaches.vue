@@ -52,7 +52,7 @@
           rowData () {
             return this.teamCoaches.map(coach => {
               return {
-                number: coach.jerseyNumber,
+                number: coach.jerseyNumber ? coach.jerseyNumber : "--",
                 name: coach.person.fullName,
                 job: coach.job,
               }
