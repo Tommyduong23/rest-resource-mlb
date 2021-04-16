@@ -71,10 +71,10 @@
                 drawer: null,
                 items: [
                   { title: 'Dashboard', icon: 'mdi-view-dashboard', path: '/' },
-                  { title: 'About', icon: 'mdi-information', path: '/about' },
+                  //{ title: 'About', icon: 'mdi-information', path: '/about' },
                   { title: 'Teams', icon: 'mdi-account-group', path: '/teams' },
                   { title: 'Players', icon: 'mdi-card-account-details', path: '/players' },
-                  { title: 'Venues', icon: 'mdi-stadium', path: '/venues' },
+                  //{ title: 'Venues', icon: 'mdi-stadium', path: '/venues' },
                 ],
             }
         ),
