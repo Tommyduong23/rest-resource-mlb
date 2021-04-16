@@ -11,6 +11,7 @@
       key="team-roster-content"
     >
       <ag-grid-vue
+        v-if="teamRoster"
         dom-layout="autoHeight"
         class="ag-theme-alpine"
         :column-defs="columnDefs"
@@ -44,7 +45,7 @@
 
         data: () => (
             {
-                teamRoster: [],
+                teamRoster: null,
             }
         ),
 

@@ -11,6 +11,7 @@
       key="team-coaches-content"
     >
       <ag-grid-vue
+        v-if="teamCoaches"
         dom-layout="autoHeight"
         class="ag-theme-alpine"
         :column-defs="columnDefs"
@@ -44,7 +45,7 @@
 
         data: () => (
             {
-                teamCoaches: [],
+                teamCoaches: null,
             }
         ),
 
