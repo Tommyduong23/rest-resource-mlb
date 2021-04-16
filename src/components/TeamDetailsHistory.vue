@@ -85,7 +85,7 @@
               required: true,
           },
           selectedSeason: {
-              type: Number,
+              type: String,
               required: true,
           }
       },
