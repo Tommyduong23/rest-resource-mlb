@@ -23,7 +23,7 @@
             elevation="3"
           >
             <mlb-team-logo
-              :id="teamDetails.attributes.id"
+              :team="teamDetails"
               height="100%"
             />
           </v-card>
@@ -60,10 +60,10 @@
         </v-col>
       </v-row>
       <v-expansion-panels 
-        v-model="meta.expandedPanel"
+        :value="0"
         accordion
       >
-        <template v-for="(teamComponent, idx) in meta.teamComponents">
+        <template v-for="(teamComponent, idx) in teamComponents">
           <component
             :is="`team-details-${teamComponent}`"
             :key="idx"
@@ -106,14 +106,11 @@
 
     data: () => (
       {
-        meta: {
-          expandedPanel: 0,
-          teamComponents: [
-            "roster",
-            "coaches",
-            "history",
-          ],
-        },
+        teamComponents: [
+          "roster",
+          "coaches",
+          "history",
+        ],
       }
     ),
 
