@@ -1,9 +1,8 @@
 <template>
   <div
     v-if="league"
-    :class="isHeader ? 'league-header' : 'league-tag'"
   >
-    {{ isHeader ? league.attributes.name : league.attributes.abbreviation }}
+    {{ league.attributes.name }}
   </div>
   <div v-else>
     Loading...
@@ -23,7 +22,6 @@
             type: Number,
             required: true,
         },
-        isHeader: Boolean,
     },
 
     data: () => ({
@@ -35,10 +33,3 @@
     }
   })
 </script>
-
-<style scoped>
-  .league-header {
-    padding: 10px;
-    font-weight: bold;
-  }
-</style>
