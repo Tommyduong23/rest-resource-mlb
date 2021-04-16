@@ -52,8 +52,8 @@
           rowData () {
             return this.teamRoster.map(player => {
               return {
-                number: player.jerseyNumber,
-                name: player.person.fullName + ' (' + player.position.abbreviation + ')',
+                number: player.jerseyNumber ? player.jerseyNumber : player.position.abbreviation,
+                name: player.person.fullName,
                 position: player.position.name,
                 status: player.status.description,
               }
