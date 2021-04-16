@@ -20,10 +20,7 @@
           <v-expansion-panel-header
             :key="league.id+'-header'"
           >
-            <mlb-league-name
-              :id="league.id"
-              is-header
-            />
+            <strong> {{ league.name }} </strong>
           </v-expansion-panel-header>
 
           <v-expansion-panel-content
@@ -83,6 +80,7 @@
         this.leagueList.forEach(league => {
           result.push({
             id: league.id,
+            name: league.attributes.name,
             teams: this.teamList.filter(team => team.attributes.league == league.id),
           })
         })
