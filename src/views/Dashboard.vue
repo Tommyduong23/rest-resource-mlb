@@ -25,6 +25,7 @@
               is-header
             />
           </v-expansion-panel-header>
+
           <v-expansion-panel-content
             :key="league.id+'-content'"
           >
@@ -66,10 +67,10 @@
   import Vue from 'vue'
   import { mapState } from 'vuex'
 
-  import { TeamList } from '../mixins'
+  import { LeagueList, TeamList } from '../mixins'
 
   export default Vue.extend({
-   mixins: [TeamList],
+   mixins: [LeagueList, TeamList],
 
     computed: {
       ...mapState([
@@ -79,12 +80,10 @@
       teamListByLeague () {
         let result = []
 
-        let leagues = [...new Set(this.teamList.map(team => team.attributes.league))].sort()
-
-        leagues.forEach(league => {
+        this.leagueList.forEach(league => {
           result.push({
-            id: league,
-            teams: this.teamList.filter(team => team.attributes.league == league),
+            id: league.id,
+            teams: this.teamList.filter(team => team.attributes.league == league.id),
           })
         })
 
@@ -94,12 +93,14 @@
 
     watch: {
       selectedSeason () {
+        this.getLeagueList({query: { season: this.selectedSeason, sportId: '1', leagueIds: '103,104'} })
         this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
       },
     },
 
     async mounted() {
       if (this.selectedSeason) {
+        this.getLeagueList({query: { season: this.selectedSeason, sportId: '1', leagueIds: '103,104'} })
         this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
       }
     },
