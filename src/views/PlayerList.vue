@@ -50,7 +50,6 @@
             firstName: player.firstName,
             lastName: player.lastName,
             age: player.currentAge,
-            //team: player.get('primaryTeam.name')
           }
         })
       },
@@ -73,7 +72,6 @@
           {field: 'firstName', sortable: true},
           {field: 'lastName', sortable: true},
           {field: 'age', sortable: true},
-          //{field: 'team', sortable: true},
          ]
       },
     },
