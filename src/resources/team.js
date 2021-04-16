@@ -19,7 +19,7 @@ export default class TeamResource extends BaseResource {
         sport: {
             to: SportResource,
         },
-        sprintLeague: {
+        springLeague: {
             to: LeagueResource,
         },
         springVenue: {
