@@ -21,7 +21,9 @@
       <v-list-item>
         <v-autocomplete
           v-model="selectedSeason"
-          :items="leagueSeasons"
+          :items="seasonList"
+          item-text="attributes.seasonId"
+          item-value="attributes.seasonId"
           hide-details="auto"
           label="Season"
           class="season-select"
@@ -34,26 +36,18 @@
 <script>
   import Vue from 'vue'
 
-  import SeasonResource from '../resources/season'
+  import { SeasonList } from '../mixins'
   import { getTeamColors } from '../config'
 
   export default Vue.extend({
+    mixins: [SeasonList],
+
     props: {
         team: {
             type: Number,
             default: 0,
         },
     },
-
-    data: () => (
-      {
-        meta: {
-          showSeasonSelect: null,
-          loading: false,
-        },
-        leagueSeasons: [],
-      }
-    ),
 
     computed: {
       selectedSeason: {
@@ -63,21 +57,18 @@
         set (value) {
           this.$store.commit('setSeason', value)
         }
-      }
+      },
     },
 
     async mounted() {
-      let seasons = await SeasonResource.list({ query: { sportId: '1', all: 'true'} })
-      this.leagueSeasons = seasons.resources.map(season => parseInt(season.attributes.seasonId)).sort((a, b) => {return b - a})
+      await this.getSeasonList({ query: { sportId: '1', all: 'true'} })
+
       if (!this.$store.state.selectedSeason) {
-        this.$store.commit('setSeason', this.leagueSeasons[0])
+        this.$store.commit('setSeason', this.seasonList[0].attributes.seasonId)
       }
     },
 
     methods: {
-      toggleSeasonSelect () {
-        this.meta.showSeasonSelect = !this.meta.showSeasonSelect
-      },
       getTeamColors,
     },
   })
