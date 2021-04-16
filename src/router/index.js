@@ -16,12 +16,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
- {
-   path: '/teams',
-   name: 'Teams',
-   component: () =>
-     import(/* webpackChunkName: "teams" */ '../views/TeamList.vue'),
- },
+  {
+    path: '/teams',
+    name: 'Teams',
+    component: () =>
+      import(/* webpackChunkName: "teams" */ '../views/TeamList.vue'),
+  },
   {
     path: '/teams/:id',
     name: 'Team Details',
@@ -32,6 +32,12 @@ const routes = [
     },
     component: () =>
       import(/* webpackChunkName: "teams" */ '../views/TeamDetails.vue'),
+  },
+  {
+    path: '/players',
+    name: 'Players',
+    component: () =>
+      import(/* webpackChunkName: "players" */ '../views/PlayerList.vue'),
   },
 ]
 
