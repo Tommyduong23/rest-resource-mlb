@@ -3,9 +3,7 @@
     max-width="100%"
     height="210px"
   >
-    <mlb-team-logo
-      :team="team"
-    />
+    <mlb-team-logo :team="team" />
 
     <v-card-title>
       {{ team.get('teamName') }}
@@ -15,14 +13,8 @@
       {{ team.get('locationName') }}
     </v-card-subtitle>
 
-    <v-card-text
-      v-if="team.attributes.division"
-    >
-      <mlb-division-name
-        v-if="team.get('division')"
-        :division="team.get('division')"
-        :style="{color: '#aaa'}"
-      />
+    <v-card-text v-if="team.attributes.division">
+      {{ team.get('division.abbreviation') }}
     </v-card-text>
   </v-card>
 </template>
