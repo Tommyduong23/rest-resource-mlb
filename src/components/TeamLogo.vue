@@ -1,6 +1,6 @@
 <template>
   <v-img
-    :src="`//www.mlbstatic.com/team-logos/${id}.svg`"
+    :src="`//www.mlbstatic.com/team-logos/${team.attributes.id}.svg`"
     :aspect-ratio="1/1"
     :height="height"
     width="auto"
@@ -14,16 +14,13 @@
     export default Vue.extend({
         name: 'TeamLogo',
         props: {
-            id: {
-                type: [Number, String],
+            team: {
+                type: Object,
                 required: true,
-                validator: (value) => {
-                  return parseInt(value) ? true : false
-                }
             },
             height: {
-              type: String,
-              default: "50%",
+                type: String,
+                default: "50%",
             }
         },
     })

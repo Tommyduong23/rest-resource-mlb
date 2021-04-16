@@ -1,39 +1,24 @@
 <template>
   <div
-    v-if="division"
     :class="isHeader ? 'division-header' : 'division-tag'"
   >
     {{ isHeader ? division.attributes.name : division.attributes.abbreviation }}
-  </div>
-  <div v-else>
-    Loading...
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
 
-  import DivisionResource from '../resources/division'
-
   export default Vue.extend({
     name: 'DivisionName',
 
     props: {
-        id: {
-            type: Number,
+        division: {
+            type: Object,
             required: true,
-            validator: id => 200 <= id && id <= 205,
         },
         isHeader: Boolean,
     },
-
-    data: () => ({
-        division: null
-    }),
-
-    async mounted () {
-        this.division = await DivisionResource.detail(this.id)
-    }
   })
 </script>
 

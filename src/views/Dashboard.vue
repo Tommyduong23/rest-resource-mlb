@@ -47,8 +47,7 @@
                   class="team-card-link"
                 >
                   <mlb-team-card
-                    :id="team.attributes.id"
-                    :season="selectedSeason"
+                    :team="team"
                   />
                 </router-link>
               </v-col>
