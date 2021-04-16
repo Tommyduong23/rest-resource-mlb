@@ -8,11 +8,11 @@
     </template>
 
     <v-expansion-panels 
-      v-if="!meta.loading"
-      v-model="meta.expandedPanel"
+      v-if="teamList"
+      :value="0"
       accordion
     >
-      <template v-for="league in teamResourceListByLeague">
+      <template v-for="league in teamListByLeague">
         <v-expansion-panel
           :key="league.id"
           :class="'league-'+league.id+'-header'"
@@ -67,35 +67,25 @@
   import Vue from 'vue'
   import { mapState } from 'vuex'
 
-  import TeamResource from '../resources/team'
+  import { TeamList } from '../mixins'
 
   export default Vue.extend({
-    data: () => (
-      {
-        meta: {
-          expandedPanel: 0,
-          loading: false,
-        },
-        teamResourceList: [],
-      }
-    ),
+   mixins: [TeamList],
 
     computed: {
       ...mapState([
         'selectedSeason'
       ]),
 
-      leaguesFromResourceList () {
-        return [...new Set(this.teamResourceList.map(team => team.attributes.league))].sort()
-      },
-
-      teamResourceListByLeague () {
+      teamListByLeague () {
         let result = []
 
-        this.leaguesFromResourceList.forEach(league => {
+        let leagues = [...new Set(this.teamList.map(team => team.attributes.league))].sort()
+
+        leagues.forEach(league => {
           result.push({
             id: league,
-            teams: this.teamResourceList.filter(team => team.attributes.league == league),
+            teams: this.teamList.filter(team => team.attributes.league == league),
           })
         })
 
@@ -105,23 +95,14 @@
 
     watch: {
       selectedSeason () {
-        this.getResourceList()
+        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
       },
     },
 
     async mounted() {
       if (this.selectedSeason) {
-        this.getResourceList()
+        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
       }
-    },
-
-    methods: {
-      async getResourceList () {
-        this.meta.loading = true
-        let results = await TeamResource.list({ query: { sportIds: '1', season: this.selectedSeason} })
-        this.teamResourceList = results.resources
-        this.meta.loading = false
-      },
     },
   })
 </script>
