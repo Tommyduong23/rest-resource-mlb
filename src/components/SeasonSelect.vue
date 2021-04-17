@@ -63,9 +63,7 @@
     async mounted() {
       await this.getSeasonList({ query: { sportId: '1', all: 'true'} })
 
-      if (!this.$store.state.selectedSeason) {
-        this.$store.commit('setSeason', this.seasonList[0].attributes.seasonId)
-      }
+      this.selectedSeason = this.selectedSeason || this.seasonList[0].attributes.seasonId
     },
 
     methods: {

@@ -11,6 +11,7 @@
       key="team-coaches-content"
     >
       <ag-grid-vue
+        v-if="teamCoaches"
         dom-layout="autoHeight"
         class="ag-theme-alpine"
         :column-defs="columnDefs"
@@ -37,14 +38,14 @@
                 required: true,
             },
             selectedSeason: {
-                type: Number,
+                type: String,
                 required: true,
             }
         },
 
         data: () => (
             {
-                teamCoaches: [],
+                teamCoaches: null,
             }
         ),
 

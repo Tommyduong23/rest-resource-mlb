@@ -84,10 +84,6 @@
               type: Object,
               required: true,
           },
-          selectedSeason: {
-              type: Number,
-              required: true,
-          }
       },
 
       data: () => (
@@ -95,12 +91,6 @@
               teamHistory: null,
           }
       ),
-
-      watch: {
-          selectedSeason () {
-              this.getTeamHistory()
-          },
-      },
 
       async mounted() {
           this.getTeamHistory()
