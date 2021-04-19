@@ -19,8 +19,8 @@
           :key="i"
           large
           fill-dot
-          :color="getTeamColors(teamDetails.attributes.id)[0]"
-          :style="{ 'color': getTeamColors(teamDetails.attributes.id)[1] }"
+          :color="getTeamColors(teamDetails.attributes.id)['primary']"
+          :style="{ 'color': getTeamColors(teamDetails.attributes.id)['secondary'] }"
         >
           <template v-slot:icon>
             <strong class="team-season-date">

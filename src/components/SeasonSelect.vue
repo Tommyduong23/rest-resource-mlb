@@ -11,7 +11,7 @@
         v-bind="attrs"
         v-on="on"
       >
-        <v-icon :color="getTeamColors(team)[1]">
+        <v-icon :color="colors['secondary']">
           mdi-calendar
         </v-icon>
       </v-btn>
@@ -37,16 +37,16 @@
   import Vue from 'vue'
 
   import { SeasonList } from '../mixins'
-  import { getTeamColors } from '../config'
+  import { colors } from '../config/teamColors'
 
   export default Vue.extend({
     mixins: [SeasonList],
 
     props: {
-        team: {
-            type: Number,
-            default: 0,
-        },
+        colors: {
+            type: Object,
+            default: () => {return colors.default}
+        }
     },
 
     computed: {
@@ -64,10 +64,6 @@
       await this.getSeasonList({ query: { sportId: '1', all: 'true'} })
 
       this.selectedSeason = this.selectedSeason || this.seasonList[0].attributes.seasonId
-    },
-
-    methods: {
-      getTeamColors,
     },
   })
 </script>

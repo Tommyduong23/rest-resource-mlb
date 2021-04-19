@@ -2,14 +2,14 @@
   <div>
     <v-app-bar
       app
-      :style="{ 'background-color': getTeamColors(team)[0] }"
+      :style="{ 'background-color': colors['primary'] }"
     >
       <v-app-bar-nav-icon
-        :color="getTeamColors(team)[1]"
+        :color="colors['secondary']"
         @click="toggleDrawer"
       />
       <div class="app-title">
-        <h1 :style="{ 'color': getTeamColors(team)[1] }">
+        <h1 :style="{ 'color': colors['secondary'] }">
           <slot name="page-title">
             Major League Baseball
           </slot>
@@ -56,14 +56,14 @@
 <script>
     import Vue from 'vue'
 
-    import { getTeamColors } from '../config'
+    import { colors } from '../config/teamColors'
 
     export default Vue.extend({
         props: {
-            team: {
-                type: Number,
-                default: 0,
-            },
+            colors: {
+                type: Object,
+                default: () => {return colors.default}
+            }
         },
 
         data: () => (
@@ -83,7 +83,6 @@
             toggleDrawer () {
                 this.drawer = !this.drawer
             },
-            getTeamColors
         },
     })
 </script>
