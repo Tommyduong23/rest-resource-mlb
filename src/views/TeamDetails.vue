@@ -22,10 +22,7 @@
             class="pa-3 ma-5 rounded-lg"
             elevation="3"
           >
-            <mlb-team-logo
-              :team="teamDetails"
-              height="100%"
-            />
+            <mlb-team-logo :team="teamDetails" />
           </v-card>
         </v-col>
         <v-col
