@@ -3,7 +3,10 @@
     max-width="100%"
     height="210px"
   >
-    <mlb-team-logo :team="team" />
+    <mlb-team-logo
+      :team="team"
+      :style="{ 'height' : '50%' }"
+    />
 
     <v-card-title>
       {{ team.get('teamName') }}
