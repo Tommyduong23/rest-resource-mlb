@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "serve-tests": "cp ./tests/fixtures.json ./tests/fixtures-local.json && json-server -p ${TEST_PORT:-8099} --quiet --delay ${TEST_DELAY_MS:-0} ./tests/fixtures-local.json",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
@@ -40,6 +41,7 @@
     "eslint-config-vuetify": "*",
     "eslint-plugin-prettier": "3.3.1",
     "eslint-plugin-vue": "6.2.2",
+    "json-server": "0.16.3",
     "prettier": "2.2.1",
     "sass": "1.32.0",
     "sass-loader": "10.0.0",
