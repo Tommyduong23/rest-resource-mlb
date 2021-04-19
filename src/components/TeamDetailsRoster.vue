@@ -71,8 +71,8 @@
                 suppressSizeToFit: true,
                 cellStyle: {
                   'padding': '0 10px',
-                  'color': getTeamColors(this.teamDetails.attributes.id)[1],
-                  'background-color': getTeamColors(this.teamDetails.attributes.id)[0],
+                  'color': getTeamColors(this.teamDetails.attributes.id)['secondary'],
+                  'background-color': getTeamColors(this.teamDetails.attributes.id)['primary'],
                   'font-weight': 'bold',
                   'font-size': '1em',
                   'text-align': 'center',

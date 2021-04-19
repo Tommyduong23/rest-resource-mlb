@@ -1,12 +1,12 @@
 <template>
   <mlb-base
-    :team="teamDetails ? teamDetails.attributes.id : 0"
+    :colors="getTeamColors(teamDetails ? teamDetails.attributes.id : 'default')"
   >
     <template #page-title>
       {{ teamDetails ? teamDetails.attributes.name : "Loading..." }}
     </template>
     <template #top-right-menu>
-      <mlb-season-select :team="teamDetails ? teamDetails.attributes.id : 0" />
+      <mlb-season-select :colors="getTeamColors(teamDetails ? teamDetails.attributes.id : 'default')" />
     </template>
 
     <template v-if="teamDetails">
@@ -85,6 +85,8 @@
   import TeamDetailsCoaches from '../components/TeamDetailsCoaches'
   import TeamDetailsHistory from '../components/TeamDetailsHistory'
 
+  import { getTeamColors } from '../config/teamColors'
+
   export default Vue.extend({
     components: {
         TeamDetailsRoster,
@@ -126,5 +128,9 @@
         this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason}, resolveRelated: true, useCache: false } )
       }
     },
+
+    methods: {
+      getTeamColors,
+    }
   })
 </script>
