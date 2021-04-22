@@ -4,6 +4,7 @@ node_modules
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
+/tests/fixtures-local.json
 
 
 # local env files
