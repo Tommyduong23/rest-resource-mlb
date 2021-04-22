@@ -14,6 +14,13 @@
             team: {
                 type: Object,
                 required: true,
+                validator: (value) => {
+                    if ('attributes' in value && 'id' in value.attributes) {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
             },
         },
     })
