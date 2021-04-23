@@ -6,59 +6,75 @@ import { colors } from '@/config/teamColors'
 import Base from "@/components/Base"
 
 describe('components/Base.vue', () => {
-    it('Slot(Title): displays default title', () => {
-        const wrapper = shallowMount(Base)
-        const defaultTitle = 'Major League Baseball'
+    let shallowMountFunction
 
-        expect(wrapper.find('h1').text()).to.include(defaultTitle)
+    beforeEach(() => {
+        shallowMountFunction = (options = {}) => {
+            return shallowMount(Base, {
+                ...options,
+            })
+        }
+    })
+
+    it('Slot(Title): displays default title', () => {
+        const defaultTitle = 'Major League Baseball'
+        const componentTitle = shallowMountFunction().find('h1').text()
+
+        expect(componentTitle).to.include(defaultTitle)
     })
 
     it('Slot(Title): displays custom title', () => {
         const title = 'Test Title'
-        const wrapper = shallowMount(Base, {
+        const wrapper = shallowMountFunction({
             slots: {
-                'page-title': title
+                'page-title': title,
             }
         })
+        const componentTitle = wrapper.find('h1').text()
 
-        expect(wrapper.find('h1').text()).to.include(title)
+        expect(componentTitle).to.include(title)
     })
 
     it('Slot(Default): displays default content', () => {
-        const wrapper = shallowMount(Base)
         const defaultContent = 'Need to Implement'
+        const componentContent = shallowMountFunction().find('v-main-stub').text()
 
-        expect(wrapper.find('v-main-stub').text()).to.include(defaultContent)
+        expect(componentContent).to.include(defaultContent)
     })
 
     it('Slot(Default): displays custom content', () => {
-        const content = 'Test Content'
-        const wrapper = shallowMount(Base, {
+        const customContent = 'Test Content'
+        const wrapper = shallowMountFunction({
             slots: {
-                'default': content
+                'default': customContent,
             }
         })
+        const componentContent = wrapper.find('v-main-stub').text()
 
-        expect(wrapper.find('v-main-stub').text()).to.include(content)
+        expect(componentContent).to.include(customContent)
     })
 
     it('Slot(top-right-menu): displays custom content', () => {
-        const content = 'Test Content'
-        const wrapper = shallowMount(Base, {
+        const customContent = 'Test Content'
+        const wrapper = shallowMountFunction({
             slots: {
-                'top-right-menu': content
+                'top-right-menu': customContent,
             }
         })
+        const componentContent = wrapper.find('v-app-bar-stub').text()
 
-        expect(wrapper.find('v-app-bar-stub').text()).to.include(content)
+        expect(componentContent).to.include(customContent)
     })
 
     it('Props(colors): uses default colors', () => {
-        const wrapper = shallowMount(Base)
+        const wrapper = shallowMountFunction()
+        const appBarStyle = wrapper.find('v-app-bar-stub').attributes('style')
+        const appBarIconColor = wrapper.find('v-app-bar-nav-icon-stub').attributes('color')
+        const titleSyle = wrapper.find('h1').attributes('style')
 
-        expect(wrapper.find('v-app-bar-stub').attributes('style')).to.equal('background-color: ' + colors.default.primary+';')
-        expect(wrapper.find('v-app-bar-nav-icon-stub').attributes('color')).to.equal(colors.default.secondary)
-        expect(wrapper.find('h1').attributes('style')).to.equal('color: ' + colors.default.secondary+';')
+        expect(appBarStyle).to.equal('background-color: ' + colors.default.primary + ';')
+        expect(appBarIconColor).to.equal(colors.default.secondary)
+        expect(titleSyle).to.equal('color: ' + colors.default.secondary + ';')
     })
 
     it('Props(colors): uses custom colors', () => {
@@ -66,15 +82,17 @@ describe('components/Base.vue', () => {
             primary: 'blue',
             secondary: 'red'
         }
-
-        const wrapper = shallowMount(Base, {
+        const wrapper = shallowMountFunction({
             propsData: {
                 'colors': testColors
             }
         })
+        const appBarStyle = wrapper.find('v-app-bar-stub').attributes('style')
+        const appBarIconColor = wrapper.find('v-app-bar-nav-icon-stub').attributes('color')
+        const titleSyle = wrapper.find('h1').attributes('style')
 
-        expect(wrapper.find('v-app-bar-stub').attributes('style')).to.equal('background-color: ' + testColors.primary + ';')
-        expect(wrapper.find('v-app-bar-nav-icon-stub').attributes('color')).to.equal(testColors.secondary)
-        expect(wrapper.find('h1').attributes('style')).to.equal('color: ' + testColors.secondary + ';')
+        expect(appBarStyle).to.equal('background-color: ' + testColors.primary + ';')
+        expect(appBarIconColor).to.equal(testColors.secondary)
+        expect(titleSyle).to.equal('color: ' + testColors.secondary + ';')
     })
 })
