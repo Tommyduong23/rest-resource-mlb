@@ -25,6 +25,8 @@
 <script>
   import Vue from 'vue'
 
+  import TeamResource from '../resources/team'
+
   export default Vue.extend({
     name: "TeamCard",
 
@@ -32,6 +34,7 @@
         team: {
             type: Object,
             required: true,
+            validator: value => value instanceof TeamResource
         },
     },
   })
