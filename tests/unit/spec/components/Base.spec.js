@@ -1,3 +1,4 @@
+import Vuetify from 'vuetify'
 import { expect } from "chai"
 import { shallowMount } from "@vue/test-utils"
 
@@ -6,11 +7,14 @@ import { colors } from '@/config/teamColors'
 import Base from "@/components/Base"
 
 describe('components/Base.vue', () => {
-    let shallowMountFunction
+    let shallowMountFunction, vuetify
 
     beforeEach(() => {
+        vuetify = new Vuetify();
+
         shallowMountFunction = (options = {}) => {
             return shallowMount(Base, {
+                vuetify,
                 ...options,
             })
         }
