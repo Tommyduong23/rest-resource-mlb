@@ -1,5 +1,5 @@
 import { BaseResource } from './index'
 
-export default class TeamResource extends BaseResource {
+export default class SeasonResource extends BaseResource {
     static endpoint = '/seasons/all'
 }
