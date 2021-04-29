@@ -27,7 +27,7 @@ export const SeasonDetails = {
 
     methods: {
         async getSeasonDetails (id, options = {}) {
-            this.SeasonDetails = await SeasonResource.detail(id, { ...options })
+            this.seasonDetails = await SeasonResource.detail(id, { ...options })
         }
     }
 }
