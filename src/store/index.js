@@ -12,8 +12,6 @@ export default new Vuex.Store({
       state.selectedSeason = season
     }
   },
-  actions: {
-
-  },
+  actions: {},
   modules: {},
 })
