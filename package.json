@@ -1,6 +1,6 @@
 {
   "name": "rest-resource-mlb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,7 +10,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "prettier": "./node_modules/prettier/bin-prettier.js --write ./src/**/*.js ./src/*.js ./src/**/*.vue ./src/*.vue"
+    "prettier": "./node_modules/prettier/bin-prettier.js --write ./src/**/*.js ./src/*.js ./src/**/*.vue ./src/*.vue",
+    "release": "standard-version"
   },
   "dependencies": {
     "ag-grid-community": "25.1.0",
@@ -49,6 +50,7 @@
     "sass": "1.32.0",
     "sass-loader": "10.0.0",
     "sinon": "10.0.0",
+    "standard-version": "^9.3.0",
     "vue-cli-plugin-eslint-config-vuetify": "0.0.3",
     "vue-cli-plugin-vuetify": "2.3.1",
     "vue-template-compiler": "2.6.11",
