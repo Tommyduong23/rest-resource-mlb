@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "./node_modules/.bin/serve -s ./dist $PORT",
     "build": "vue-cli-service build",
     "serve-tests": "cp ./tests/fixtures.json ./tests/fixtures-local.json && json-server -p ${TEST_PORT:-8099} --quiet --delay ${TEST_DELAY_MS:-0} ./tests/fixtures-local.json",
     "test:unit": "vue-cli-service test:unit",
@@ -17,6 +18,7 @@
     "core-js": "3.6.5",
     "register-service-worker": "1.7.1",
     "rest-resource": "0.9.4",
+    "serve": "11.3.2",
     "vue": "2.6.11",
     "vue-class-component": "7.2.6",
     "vue-property-decorator": "9.1.2",
