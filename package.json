@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "start": "./node_modules/.bin/serve -s ./dist $PORT",
+    "start": "./node_modules/.bin/serve -s ./dist -p $PORT",
     "build": "vue-cli-service build",
     "serve-tests": "cp ./tests/fixtures.json ./tests/fixtures-local.json && json-server -p ${TEST_PORT:-8099} --quiet --delay ${TEST_DELAY_MS:-0} ./tests/fixtures-local.json",
     "test:unit": "vue-cli-service test:unit",
