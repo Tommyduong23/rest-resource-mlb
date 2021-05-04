@@ -11,7 +11,8 @@
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "prettier": "./node_modules/prettier/bin-prettier.js --write ./src/**/*.js ./src/*.js ./src/**/*.vue ./src/*.vue",
-    "release": "standard-version"
+    "release": "standard-version",
+    "commit": "cz"
   },
   "dependencies": {
     "ag-grid-community": "25.1.0",
@@ -40,6 +41,8 @@
     "@vue/test-utils": "1.0.3",
     "babel-eslint": "10.1.0",
     "chai": "4.1.2",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.2.0",
     "eslint": "6.7.2",
     "eslint-config-vuetify": "*",
     "eslint-plugin-prettier": "3.3.1",
@@ -55,5 +58,10 @@
     "vue-cli-plugin-vuetify": "2.3.1",
     "vue-template-compiler": "2.6.11",
     "vuetify-loader": "1.7.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
