@@ -3,16 +3,16 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "start": "./node_modules/.bin/serve -s ./dist -p $PORT",
     "build": "vue-cli-service build",
-    "serve-tests": "cp ./tests/fixtures.json ./tests/fixtures-local.json && json-server -p ${TEST_PORT:-8099} --quiet --delay ${TEST_DELAY_MS:-0} ./tests/fixtures-local.json",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
+    "commit": "cz",
     "lint": "vue-cli-service lint",
     "prettier": "./node_modules/prettier/bin-prettier.js --write ./src/**/*.js ./src/*.js ./src/**/*.vue ./src/*.vue",
     "release": "standard-version",
-    "commit": "cz"
+    "serve": "vue-cli-service serve",
+    "serve-tests": "cp ./tests/fixtures.json ./tests/fixtures-local.json && json-server -p ${TEST_PORT:-8099} --quiet --delay ${TEST_DELAY_MS:-0} ./tests/fixtures-local.json",
+    "start": "./node_modules/.bin/serve -s ./dist -p $PORT",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
     "ag-grid-community": "25.1.0",
