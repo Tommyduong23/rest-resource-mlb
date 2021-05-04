@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/sigmacloud/rest-resource-mlb/compare/v0.1.1...v1.0.0) (2021-05-04)
+
+
+### Features
+
+* adding Commitizen to the repo to standardize commit messages ([ad0ca82](https://github.com/sigmacloud/rest-resource-mlb/commit/ad0ca825f81423bf5d85747e181f7c8b909cee74))
+
+
+### Bug Fixes
+
+* alphabetize package scripts ([f606b07](https://github.com/sigmacloud/rest-resource-mlb/commit/f606b07678ceccd0db821ff1c8227500bc10cad9))
+
 ### 0.1.1 (2021-05-04)
 
 
