@@ -86,13 +86,12 @@
         },
 
         watch: {
-            selectedSeason () {
-                this.getTeamRoster()
-            },
-        },
-
-        mounted() {
-            this.getTeamRoster()
+          selectedSeason: {
+              immediate: true,
+              handler(newVal) {
+                  newVal && this.getTeamRoster()
+              },
+          },
         },
 
         methods: {

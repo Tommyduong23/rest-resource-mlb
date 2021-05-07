@@ -63,15 +63,12 @@
     },
 
     watch: {
-      selectedSeason () {
-        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
+        selectedSeason: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.getTeamList({ query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
       },
     },
-
-    async mounted() {
-      if (this.selectedSeason) {
-        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
-      }
     },
   })
 </script>
