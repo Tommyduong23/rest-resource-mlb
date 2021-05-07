@@ -77,15 +77,12 @@
     },
 
     watch: {
-      selectedSeason () {
-        this.getPlayerList({ season: this.selectedSeason })
+        selectedSeason: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.getPlayerList({ season: this.selectedSeason })
       },
     },
-
-    async mounted() {
-      if (this.selectedSeason) {
-        this.getPlayerList({ season: this.selectedSeason })
-      }
     },
 
     methods: {

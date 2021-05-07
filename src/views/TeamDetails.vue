@@ -56,7 +56,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-expansion-panels 
+      <v-expansion-panels
         :value="0"
         accordion
       >
@@ -118,15 +118,12 @@
     },
 
     watch: {
-      selectedSeason () {
-        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason}, resolveRelated: true, useCache: false } )
+        selectedSeason: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason }, resolveRelated: true, useCache: false })
       },
     },
-
-    mounted() {
-      if (this.selectedSeason) {
-        this.getTeamDetails(this.id, { query: { sportIds: '1', season: this.selectedSeason}, resolveRelated: true, useCache: false } )
-      }
     },
 
     methods: {

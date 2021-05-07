@@ -84,13 +84,12 @@
         },
 
         watch: {
-            selectedSeason () {
-                this.getTeamCoaches()
-            },
-        },
-
-        mounted() {
-            this.getTeamCoaches()
+          selectedSeason: {
+              immediate: true,
+              handler(newVal) {
+                  newVal && this.getTeamCoaches()
+              },
+          },
         },
 
         methods: {

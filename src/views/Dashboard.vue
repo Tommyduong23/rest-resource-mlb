@@ -7,7 +7,7 @@
       <mlb-season-select />
     </template>
 
-    <v-expansion-panels 
+    <v-expansion-panels
       v-if="teamList"
       :value="0"
       accordion
@@ -90,17 +90,15 @@
     },
 
     watch: {
-      selectedSeason () {
-        this.getLeagueList({query: { season: this.selectedSeason, sportId: '1', leagueIds: '103,104'} })
-        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
+        selectedSeason: {
+            immediate: true,
+            handler(newVal) {
+                if (newVal) {
+                    this.getLeagueList({ query: { season: this.selectedSeason, sportId: '1', leagueIds: '103,104' } })
+                    this.getTeamList({ query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
+                }
       },
     },
-
-    async mounted() {
-      if (this.selectedSeason) {
-        this.getLeagueList({query: { season: this.selectedSeason, sportId: '1', leagueIds: '103,104'} })
-        this.getTeamList({query: { season: this.selectedSeason, sportIds: '1' }, resolveRelated: true })
-      }
     },
   })
 </script>
