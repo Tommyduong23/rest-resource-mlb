@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: '/rest-resource-mlb/',
   transpileDependencies: ['vuetify'],
   chainWebpack: config => {
     config.plugin('VuetifyLoaderPlugin').tap(args => [{
