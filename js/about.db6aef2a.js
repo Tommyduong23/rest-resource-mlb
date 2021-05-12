@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["about"],{f820:function(e,t,n){"use strict";n.r(t);var o=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("mlb-base",{scopedSlots:e._u([{key:"page-title",fn:function(){return[e._v(" About ")]},proxy:!0}])},[n("h1",[e._v(" About Page Content ")])])},u=[],a=n("2877"),l=n("6544"),s=n.n(l),c=n("bd0c"),r={},b=Object(a["a"])(r,o,u,!1,null,null,null);t["default"]=b.exports;s()(b,{MlbBase:c["a"]})}}]);
+//# sourceMappingURL=about.db6aef2a.js.map
